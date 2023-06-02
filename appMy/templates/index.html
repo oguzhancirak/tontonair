@@ -1,0 +1,465 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+
+		
+		<!--about-us start -->
+		<section id="home" class="about-us">
+			<div class="container">
+				<div class="about-us-content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="single-about-us">
+								<div class="about-us-txt">
+									<h2>
+										Dünyayı keşfettiniz
+									</h2>
+									<div class="about-btn">
+										<button  class="about-view">
+											şimdi keşfet
+										</button>
+									</div><!--/.about-btn-->
+								</div><!--/.about-us-txt-->
+							</div><!--/.single-about-us-->
+						</div><!--/.col-->
+						<div class="col-sm-0">
+							<div class="single-about-us">
+								
+							</div><!--/.single-about-us-->
+						</div><!--/.col-->
+					</div><!--/.row-->
+				</div><!--/.about-us-content-->
+			</div><!--/.container-->
+
+		</section><!--/.about-us-->
+		<!--about-us end -->
+
+		<!--travel-box start-->
+		<section  class="travel-box">
+        	<div class="container" id="ticket">
+        		<div class="row">
+        			<div class="col-md-12">
+        				<div class="single-travel-boxes">
+        					<div id="desc-tabs" class="desc-tabs">
+
+								
+								<ul class="nav nav-tabs titleMy" role="tablist">
+
+									<li role="presentation" >
+									 	<a class="titleMyA" href="#flights" aria-controls="flights" role="tab" data-toggle="tab">
+									 		<i class="fa fa-plane"></i>
+									 		Uçuşlar
+									 	</a>
+									</li>
+								</ul>
+							
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+
+									<form action="{% url 'ticket' %}" method="POST"  id="flights">
+										{% csrf_token %}
+										<div class="tab-para">
+											<div class="trip-circle">
+												<div class="single-trip-circle">
+													<input required  type="radio" id="radio01" name="radio" />
+  													<label for="radio01">
+  														<span class="round-boarder">
+  															<span class="round-boarder1"></span>
+  														</span>Gidiş-Geliş
+  													</label>
+												</div><!--/.single-trip-circle-->
+												<div class="single-trip-circle">
+													<input required  type="radio" id="radio02" name="radio" />
+  													<label for="radio02">
+  														<span class="round-boarder">
+  															<span class="round-boarder1"></span>
+  														</span>Tek Yön
+  													</label>
+												</div><!--/.single-trip-circle-->
+											</div><!--/.trip-circle-->
+
+											<script>
+												myRadio2=document.getElementById("radio02");
+
+												myRadio2.addEventListener("click",function(e){
+													
+													document.querySelector(".return").setAttribute("disabled","")
+													this.removeAttribute("required","");
+
+												})
+												document.getElementById("radio01").addEventListener("click",function(e){
+													document.querySelector(".return").removeAttribute("disabled","")
+													this.removeAttribute("required","");
+												})
+											</script>
+											<div class="row">
+												<div class="col-lg-4 col-md-4 col-sm-12">
+													<div class="single-tab-select-box">
+
+														<h2>Nereden</h2>
+
+														<div class="travel-select-icon">
+															<select required name="nereden" class="form-control ">
+
+															  	<option  value="nereye">Nereden</option><!-- /.option-->
+																
+																{% for i in depature %}
+																{% comment %} 															
+																{% if i.depeture_place.name == i.depeture_place.name  %} {% endcomment %}
+																	
+																{% comment %} {% else %} {% endcomment %}
+																<option  value="{{ i }}">{{ i }}</option><!-- /.option-->
+
+																{% comment %} {% endif %} {% endcomment %}
+																	
+														
+																{% endfor %}
+																	
+															  	
+
+															  
+
+															</select><!-- /.select-->
+														</div><!-- /.travel-select-icon -->
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+
+												<div class="col-lg-2 col-md-3 col-sm-4">
+													<div class="single-tab-select-box">
+														<h2>Kalkış</h2>
+														<div class="travel-check-icon">
+															
+																<input required name="kalkis" type="date" name="departure" class="form-control" 
+																placeholder="18 -05 - 2023 ">
+														
+														</div><!-- /.travel-check-icon -->
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+
+												<div class="col-lg-2 col-md-3 col-sm-4">
+													<div class="single-tab-select-box">
+														<h2>Dönüş</h2>
+														<div class="travel-check-icon">
+															
+																<input  required name="donus" type="date" name="return" class="form-control return"  placeholder="19 -05 - 2023 ">
+														
+														</div><!-- /.travel-check-icon -->
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+												
+												
+
+												<div class="col-lg-2 col-md-1 col-sm-4">
+													<div class="single-tab-select-box">
+														<h2>Yetişkin</h2>
+														<div class="">
+															<input required name="yetiskin" style="height:48px;" class="form-control" type="number" name="" id="" placeholder="Kişi sayısı">
+														</div>
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+
+												<div class="col-lg-2 col-md-1 col-sm-4">
+													<div class="single-tab-select-box">
+														<h2>Çocuk</h2>
+														<div class="">
+															<input required name="cocuk" style="height:48px;" class="form-control " type="number" name="" id="" placeholder="Çocuk sayısı">
+														</div>
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+
+											</div><!--/.row-->
+
+											<div class="row">
+												<div class="col-lg-4 col-md-4 col-sm-12">
+													<div class="single-tab-select-box">
+
+														<h2>Nereye</h2>
+
+														<div class="travel-select-icon">
+															<select required name="varis" class="form-control ">
+
+															  	<option  value="varis">Varış</option><!-- /.option-->
+
+																  {% for i in arrive %}
+																  
+																
+																  <option  value="{{ i }}">{{ i }}</option><!-- /.option-->
+																 
+																	
+																  
+																  {% endfor %}
+															</select><!-- /.select-->
+														</div><!-- /.travel-select-icon -->
+
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+												
+												<div class="col-lg-2 col-md-1 col-sm-4">
+													<div class="single-tab-select-box">
+														<h2>Bagaj</h2>
+														<div class="">
+															<input required name="bagaj myIput" style="height:48px;" class="form-control" type="number" name="" id="" placeholder="Bagaj Ağırlığı">
+														</div>
+													</div><!--/.single-tab-select-box-->
+												</div><!--/.col-->
+												<div class="clo-sm-5">
+													<div class="about-btn pull-right">
+													
+														
+															
+														<button id="myBtn" type="submit"  name="submit" value="flight-submit" class="about-view travel-btn">
+															Uçuş Ara	
+														</button><!--/.travel-btn-->
+														
+													</div><!--/.about-btn-->
+												</div><!--/.col-->
+												
+											</div><!--/.row-->
+
+										</div>
+
+									</form><!--/.tabpannel-->
+
+								</div><!--/.tab content-->
+							</div><!--/.desc-tabs-->
+        				</div><!--/.single-travel-box-->
+        			</div><!--/.col-->
+        		</div><!--/.row-->
+        	</div><!--/.container-->
+
+        </section><!--/.travel-box-->
+		<!--travel-box end-->
+
+        <!--service start-->
+		<section id="service" class="service">
+			<div class="container">
+
+				<div class="service-counter text-center">
+
+					<div class="col-md-6 col-sm-6">
+						<div class="single-service-box">
+							<div class="service-img">
+								<img src="{% static 'assets/images/service/s1.png' %}" alt="service-icon" />
+							</div><!--/.service-img-->
+							<div class="service-content">
+								<h2>
+									<a href="#gallery">
+									Mükemmel Uçuş Paketleri
+									</a>
+								</h2>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </div><!--/.service-content-->
+						</div><!--/.single-service-box-->
+					</div><!--/.col-->
+
+				
+
+					<div class="col-md-6 col-sm-6">
+						<div class="single-service-box">
+							<div class="statistics-img">
+								<img src="{% static 'assets/images/service/s3.png' %}" alt="service-icon" />
+							</div><!--/.service-img-->
+							<div class="service-content">
+
+								<h2>
+									<a href="{% url 'getTurkey' %}">
+										online Uçuş
+									</a>
+								</h2>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+							</div><!--/.service-content-->
+						</div><!--/.single-service-box-->
+					</div><!--/.col-->
+
+				</div><!--/.statistics-counter-->	
+			</div><!--/.container-->
+
+		</section><!--/.service-->
+		<!--service end-->
+
+		<!--galley start-->
+		<section id="gallery" class="gallery">
+			<div class="container">
+				<div class="gallery-details">
+					<div class="gallary-header text-center">
+						<h2>
+							Top Uçuşlar
+						</h2>
+						<p>
+							Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.  
+						</p>
+					</div><!--/.gallery-header-->
+					<div class="gallery-box">
+						<div class="gallery-content">
+						  	<div class="filtr-container">
+						  		<div class="row">
+
+						  			<div class="col-md-6">
+						  				<div class="filtr-item">
+											<img src="{% static 'assets/images/gallary/cin.webp' %}" alt="portfolio image"/>
+											<div class="item-title">
+												<a href="#">
+													Çin
+												</a>
+												<p><span>0 Uçuş</span><span>0 yer</span></p>
+											</div><!-- /.item-title -->
+										</div><!-- /.filtr-item -->
+						  			</div><!-- /.col -->
+
+						  			<div class="col-md-6">
+						  				<div class="filtr-item">
+											<img src="{% static 'assets/images/gallary/venezualla.jpg' %}" alt="portfolio image"/>
+											<div class="item-title">
+												<a href="#">
+													venuzuala
+												</a>
+												<p><span>0</span><span> 0 yer</span></p>
+											</div> <!-- /.item-title-->
+										</div><!-- /.filtr-item -->
+						  			</div><!-- /.col -->
+
+
+						  			<div class="col-md-12">
+						  				<div style="height:250px!important; width: 100%!important;object-fit: cover;"  class="filtr-item">
+											<img src="{% static 'assets/images/gallary/türkiye.jpg' %}" alt="portfolio image"/>
+											<div class="item-title">
+												<a href="{% url 'getTurkey' %}">
+													turkey
+												</a>
+													<p><span>{{ flight|length}}</span>
+														
+													
+														<span>{{ depature|length }}</span>
+														
+															
+														</p>
+												
+													
+												
+											</div> <!-- /.item-title-->
+										</div><!-- /.filtr-item -->
+						  			</div><!-- /.col -->
+
+						  		</div><!-- /.row -->
+
+						  	</div><!-- /.filtr-container-->
+						</div><!-- /.gallery-content -->
+					</div><!--/.galley-box-->
+				</div><!--/.gallery-details-->
+			</div><!--/.container-->
+
+		</section><!--/.gallery-->
+		<!--gallery end-->
+		<!--special-offer start-->
+		<style>
+			.spo{
+			position: relative;
+		
+			background-size: cover;
+		
+			
+			z-index: 1;
+			}
+		.spo:after{
+			position: absolute;
+			content: "";
+			top: 0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			background: rgba(238, 1, 45, 0.6);
+			z-index: -1;
+			}
+		</style>
+		<section   id="spo" class="spo">
+			<div class="container">
+				<div  class="special-offer-content">
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="single-special-offer">
+								<div class="single-special-offer-txt">
+									<h2>Avrupa</h2>
+									<div class="packages-review special-offer-review">
+										<p>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<span>2544 Göz atma</span>
+										</p>
+									</div><!--/.packages-review-->
+									<div class="packages-para special-offer-para">
+										<p>
+											<span>
+												<i class="fa fa-angle-right"></i> 5 gece 6 gündüz
+											</span>
+											<span>
+												<i class="fa fa-angle-right"></i> 2 Kişi
+											</span>
+											<span>
+												<i class="fa fa-angle-right"></i>  5 yıldız
+											</span>
+										</p>
+										<p>
+											<span>
+												<i class="fa fa-angle-right"></i>  Her şey Dahil
+											</span>
+										
+										</p>
+										<p class="offer-para">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tem ut labore et dolore magna  aliqua. Ut enim ad minim veniam, quis nostrud exercitation una <br> ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+										</p>
+									</div><!--/.packages-para-->
+									<div class="offer-btn-group">
+										<div class="about-btn">
+											<button onclick="tic()" class="about-view packages-btn offfer-btn">
+												Tur
+											</button>
+										</div><!--/.about-btn-->
+										<div class="about-btn">
+											<button  onclick="reserver()" class="about-view packages-btn">
+												Rezervasyon
+											</button>
+											<script>
+												function reserver(){
+													location.href="{% url 'getTurkey' %}"
+												}
+												function tic(){
+													location.href="#ticket"
+												}
+											</script>
+										</div><!--/.about-btn-->
+									</div><!--/.offer-btn-group-->
+								</div><!--/.single-special-offer-txt-->
+							</div><!--/.single-special-offer-->
+						</div><!--/.col-->
+						<div class="col-sm-4">
+							<div class="single-special-offer">
+								<div class="single-special-offer-bg">
+									<img src="{% static 'assets/images/offer/offer-shape.png' %}" alt="offer-shape">
+								</div><!--/.single-special-offer-bg-->
+								<div class="single-special-shape-txt">
+									<h3>Özel Teklif</h3>
+									<h4><span>50%</span><br>off</h4>
+									<p><span>20000 ₺</span><br>Normal Fiyat  40000 ₺</p>
+								</div><!--/.single-special-shape-txt-->
+							</div><!--/.single-special-offer-->
+						</div><!--/.col-->
+					</div><!--/.row-->
+				</div><!--/.special-offer-content-->
+			</div><!--/.container-->
+
+		</section><!--/.special-offer end-->
+		<!--special-offer end-->
+
+		<!--blog start-->
+		
+
+		
+	
+
+		
+		{% endblock body %}

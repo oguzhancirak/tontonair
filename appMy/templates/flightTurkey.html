@@ -1,0 +1,75 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+		
+<main class="container">
+    
+    {% block navbar %}
+	
+        
+    {% endblock navbar %}
+
+		<header >
+			<div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-2">
+							<div  class="logo">
+								<a style="color:black!important" href="{% url 'index' %}">
+									Tonton<span>Air</span>
+								</a>
+							</div><!-- /.logo-->
+						</div><!-- /.col-->
+					
+					</div><!-- /.row -->
+					<div class="home-border"></div><!-- /.home-border-->
+				</div><!-- /.container-->
+			</div><!-- /.header-area -->
+
+		</header><!-- /.top-area-->
+		
+    
+		<section id="service" class="service">
+			<div  class="container text-center ">
+                <h2 style="margin-bottom:50px">Türkiye Uçuşları</h2>
+				<div style="display:flex;!important;" class="row service-counter text-center  ">
+					
+                    {% for i in flight  %}
+                    <div style="margin-bottom:30px" class="card col-md-4 " style="width: 50rem;">
+                        <img src="{% static 'assets/images/gallary/ucak.webp' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ i.title }}</h5>
+                          <p class="card-text">{{ i.text }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">{{ i.depeture_place.name }}</li>
+                          <li class="list-group-item">{{ i.arrive_place.name }}</li>
+                          <li class="list-group-item">{{ i.price }}</li>
+                        </ul>
+                        <div class="card-body">
+                          <a href="{% url 'ticketId' i.id %}" class="card-link">Rezervasyon</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                        
+                  
+		
+					
+				</div><!--/.statistics-counter-->	
+			</div><!--/.container-->
+
+		</section><!--/.service-->
+		<!--service end-->
+
+		
+
+
+	</main>
+
+		
+		{% endblock body %}
